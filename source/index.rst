@@ -4,8 +4,10 @@ SecureJoin: usable protections against MITM attacks
 ===================================================
 
 SecureJoin protocols provide a usable model for guaranteeing end-to-end encryption
-that provides safety for users against compromised servers and networks.
-The protocols are heavily based and derived from respective key parts of
+which is secure against compromised servers and networks,
+trying to break confidentiality of messages.
+
+SecureJoin protocols are heavily based and derived from respective key parts of
 `CounterMitm protocols <https://countermitm.readthedocs.io/en/latest/>`_
 which were produced by reseachers of NEXTLEAP,
 a 2016-2018 EU project on privacy and decentralized messaging.
