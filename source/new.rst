@@ -177,7 +177,7 @@ An attacker who can compromise both channels
 can inject wrong key material
 and convince the peer to verify it.
 
-.. figure:: ../images/contact.*
+.. figure:: ../images/contact.svg
    :alt: Sequence diagram of UI and administrative message flow
 
    UI and administrative message flow of contact setup

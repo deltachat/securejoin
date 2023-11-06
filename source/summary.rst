@@ -1,7 +1,7 @@
 .. raw:: latex
 
    \pagestyle{plain}
-   \cfoot{countermitm \countermitmrelease}
+   \cfoot{securejoin \securejoinrelease}
 
 Introduction
 ============

@@ -147,7 +147,7 @@ latexpdf:
 	@echo "Running LaTeX files through pdflatex..."
 	$(MAKE) -C $(BUILDDIR)/latex all-pdf
 	@echo "pdflatex finished; the PDF files are in $(BUILDDIR)/latex."
-	cp $(BUILDDIR)/latex/CounterMitm.pdf countermitm-$(RELEASE).pdf
+	cp $(BUILDDIR)/latex/SecureJoin.pdf SecureJoin-$(RELEASE).pdf
 
 .PHONY: latexpdfja
 latexpdfja:
