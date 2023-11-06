@@ -1,14 +1,23 @@
-# SecureJoin protocols 
+# SecureJoin protocols: usable security against active network attacks 
 
-Description of SecureJoin protocols designed to 
-counter MITM-attacks on Autocrypt E-Mail encryption,
-as implemented by [Delta Chat](https://delta.chat).
+SecureJoin protocols are designed to 
+counter MITM-attacks on Autocrypt E-Mail encryption
+and are implemented and released by the [Delta Chat e-mail messenger](https://delta.chat).
 
 This description is derived and refined from the the first two sections of
 [CounterMitm](https://countermitm.readthedocs.io/en/latest/)
 which were written by reseachers of NEXTLEAP, 
 a 2016-2018 project on privacy and decentralized messaging,
 funded through the EU Horizon 2020 programme. 
+
+
+## Viewing SecureJoin Docs online
+
+There are two public web pages: 
+
+- https://securejoin.delta.chat
+
+- https://securejoin.readthedocs.io/en/latest/
 
 
 ## Editing the documents 
