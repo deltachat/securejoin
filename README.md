@@ -1,12 +1,17 @@
 # SecureJoin protocols 
 
-Evolving research on protocols and approaches to counter
-mitm-attacks on Autocrypt E-Mail encryption,
-as implemented by [Delta Chat apps](https://delta.chat).
+Description of SecureJoin protocols designed to 
+counter MITM-attacks on Autocrypt E-Mail encryption,
+as implemented by [Delta Chat](https://delta.chat).
 
-The work on the initial 0.9 release has been contributed 
-by NEXTLEAP researchers, a 2016-2018 project on privacy and decentralized messaging,
+This description is derived and refined from the the first two sections of
+[CounterMitm](https://countermitm.readthedocs.io/en/latest/)
+which were written by reseachers of NEXTLEAP, 
+a 2016-2018 project on privacy and decentralized messaging,
 funded through the EU Horizon 2020 programme. 
+
+
+## Editing the documents 
 
 If you want to do Pull Requests please note that we are using 
 [Semantic Linefeeds](http://rhodesmill.org/brandon/2012/one-sentence-per-line/).
@@ -14,9 +19,7 @@ It means that the source code of this document should be
 broken down to a "one-line-per-phrase" format, 
 as to make reviewing diffs easier. 
 
-## The document uses RestructuredText
-
-While this readme uses Markdown syntax, the actual document
+While this Readme uses Markdown syntax, the actual document
 uses the richer RestructuredText format and in particular
 the "Sphinx Document Generators".  You can probably get
 around by just mimicking the syntax and "tricks" 
