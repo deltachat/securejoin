@@ -1,5 +1,14 @@
-0.10.0 (Incorporating feedback and finalizing)
+X.X
 ----------------------------------------------
+
+- XXX release revised "securejoin" protocols as implemented by Delta chat
+
+- forked from https://github.com/nextleap-project/countermitm
+  see also: https://countermitm.readthedocs.io/en/latest/
+
+
+countermitm-0.10.0 (original release)
+-------------------------------------------------
 
 - include feedback received after sharing countermitm
   with the messaging@moderncrypto.org mailing list:
