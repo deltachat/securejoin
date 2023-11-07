@@ -12,7 +12,8 @@ to the current Android 1.41.5 APK and core 1.129.1.
    and selects the green-checkmarked Carol 
    and looks at her profile.
 
-3. **Carol's contact profile has a green checkmark in the title bar.
+3. **Carol's contact profile has a green checkmark in the title bar
+   ([#4950](https://github.com/deltachat/deltachat-core-rust/issues/4950)).
    Bob selects "send message" and goes to his 1:1 green-checkmarked 
    BOB/CAROL chat which shows the "e2ee-activation" system message
    before he starts writing.** 
