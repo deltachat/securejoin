@@ -128,6 +128,9 @@ You accidentally disabled "prefer end to end encryption" in the advanced setting
 **expected:**
 1:1 protected chats keep protected, you send message there and peer still see in your messages "prefer encryption: mutual"
 
-**actual behaviour:**
+**actual behavior:**
 your first message in 1:1 protected chat is encrypted and protection is still on, on first reply of an user using old version of DC, protection is broken and their messages are now unencrypted,
 it seems to you that they broke chat protection when in fact it was because of your settings
+
+**proposed  solution:**
+if 1:1 chat is protected, always send messages there as if "prefer e2ee" option is enabled in advanced settings
