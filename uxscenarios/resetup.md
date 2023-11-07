@@ -97,6 +97,13 @@ When Alice adds Bob, then Bob's device will also post, as needed,
   providing additional clues when guaranteed e2ee was introduced 
   and when it degraded, now showing the e2ee-broken message. 
 
+## A note on migrations from 1.40 to 1.42
+
+While it's probably OK to not do anything wrt green chats during upgrade, 
+**it would also make sense to post "e2ee-activated" messages at least
+for all chats with contacts (that saw messages in the last 30-60 days?)**.
+It's a 1.42 feature after all and a one-time (pleasant for many) surprise 
+and likely not too many people have "shitloads" of verifications, anyway. 
 
 ## missed member-added messages, group membership consistency
 
