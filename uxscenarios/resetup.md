@@ -80,9 +80,11 @@ When Alice adds Bob, then Bob's device will also post, as needed,
 - IF Bob has an existing 1:1 chat with a member: 
 
   - IF the chat was not green, post a "e2ee-activated" message into it. 
+    Moves it to the top of the chatlist which is fine. 
 
   - ELSE the chat was green and the members green key changed: 
     **e2ee-broken and "e2ee-activiation" messages (maybe later: a new message)**
+    Moves it to the top of the chatlist which is fine. 
 
   - ELSE the chat was green and the members green key did not change: do nothing. 
 
@@ -90,6 +92,10 @@ When Alice adds Bob, then Bob's device will also post, as needed,
   
   **create a *hidden* 1:1 chat for Bob with the member 
   and post a "e2ee-activation" message.**
+  This does not make the chat visible in the chatlist at all
+  but when the chat later breaks, there will be day markers
+  providing additional clues when guaranteed e2ee was introduced 
+  and when it degraded, now showing the e2ee-broken message. 
 
 
 ## missed member-added messages, group membership consistency
