@@ -62,7 +62,7 @@ When green-checkmarked Alice adds Bob and sends a member-added message to the gr
   and the advise to Bob to let the degraded contact re-scan at best the group invite code,
   **so that Bob in turn fixes keys for the degraded contact for Alice and all group members.**
   Note that when members in a green group have divergent views on (green) keys,
-  two people must eventually be bothered to care for making it consistent. 
+  two people must eventually be bothered to make it consistent.
   This "care" can not be avoided as it is the basic building block 
   for "guaranteed e2e groups safe against active attacks".
   (With all other messengers each group member must reverify with the degraded contact.)
