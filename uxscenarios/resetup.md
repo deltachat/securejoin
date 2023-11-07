@@ -117,21 +117,3 @@ does not imply that member-added messages determine group membership consistency
 questions in a similar way. 
 
 
-## Changed "can not be decrypted" message that Carol sees
-
-The current message reads:
-
-```
-... – [This message cannot be decrypted. 
-• It might already help to simply reply to this message 
-and ask the sender to send the message again. 
-• In case you re-installed Delta Chat or another e-mail program 
-on this or another device you may want to send an Autocrypt Setup Message from there.] -
-```
-
-It should probably read something like: 
-
-**... – [This message cannot be decrypted. • It might already help to simply reply and ask 
-your contact to send the message again. • If you just re-installed Delta Chat 
-but are also running it on another device, 
-then it is best to re-setup Delta Chat now and choose "add as second device". ] -**
