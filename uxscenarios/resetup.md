@@ -65,7 +65,8 @@ When green-checkmarked Alice adds Bob and sends a member-added message to the gr
   two people must eventually be bothered to make it consistent.
   This "care" can not be avoided as it is the basic building block 
   for "guaranteed e2e groups safe against active attacks".
-  (With all other messengers each group member must reverify with the degraded contact.)
+  (With all other messengers each group member 
+  must individually reverify with the degraded contact.)
 
 - all other members receiving "member-bob-added" 
   will (re)set Bob's green **and Autocrypt key**. 
