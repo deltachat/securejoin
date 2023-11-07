@@ -37,9 +37,9 @@ to the current Android 1.41.5 APK and core 1.129.1.
 ## Device Resetup 2: without existing 1:1 chats
 
 **Resetup 2 scenario produces the same series of steps as the previous Resetup-Scenario 1, 
-except step 3 didn't happen because Carol and Bob never exchanged 1:1 messages. 
+except step 3 didn't happen because Carol and Bob never exchanged 1:1 messages.**
 
-Note that Bob in step 7 will still see "e2ee-activiation" and "e2ee-broken" messages
+**Note that Bob in step 7 will still see "e2ee-activiation" and "e2ee-broken" messages
 even if the chat only appeared for Bob due to Carol's "I can't read" message. 
 The main user-visible difference between the scenarios is that 
 in scenario 2 there are no messages between the "e2ee-activation" and "e2ee-broken" messages,
