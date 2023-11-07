@@ -16,7 +16,7 @@ to the current Android 1.41.5 APK and core 1.129.1.
    ([#4950](https://github.com/deltachat/deltachat-core-rust/issues/4950)).
    Bob selects "send message" and goes to his 1:1 green-checkmarked 
    BOB/CAROL chat which shows the "e2ee-activation" system message
-   before he starts writing.** 
+   before he starts writing (#TODO).** 
 
 --- time passes and then some more ---
 
@@ -44,7 +44,7 @@ except step 3 didn't happen because Carol and Bob never exchanged 1:1 messages.*
 even if the chat only appeared for Bob due to Carol's "I can't read" message. 
 The main user-visible difference between the scenarios is that 
 in scenario 2 there are no messages between the "e2ee-activation" and "e2ee-broken" messages,
-while scenario 1 has chat messages between these two system messages (due to Step 3).**
+while scenario 1 has chat messages between them (due to Step 3) (#TODO).**
 
 # II. Implementation considerations 
 
@@ -54,7 +54,7 @@ When green-checkmarked Alice adds Bob and sends a member-added message to the gr
 
 - then Bob will **Unconditionally overwrite green keys and Autocrypt public_keys 
   for all contacts introduced by Alice, 
-  so that Alice and Bob are fully synchronized on group member keys.** 
+  so that Alice and Bob are fully synchronized on group member keys. (#TODO)** 
   This does not imply that Alice/Bob's now joint view on keys is correct, however.  
   Bob might have had a "better" or "more recent" key from a contact 
   than what Alice had provided when adding Bob. This will potentially degrade Bob's 
@@ -69,7 +69,7 @@ When green-checkmarked Alice adds Bob and sends a member-added message to the gr
   must individually reverify with the degraded contact.)
 
 - all other members receiving "member-bob-added" 
-  will (re)set Bob's green **and Autocrypt key**. 
+  will (re)set Bob's green **and Autocrypt key** (#TODO). 
   **All group members, including Alice, thus fully agree on the keys for Bob.**
  
 **To summarize, after member-added all group members have the same keys for Bob,
@@ -85,6 +85,7 @@ When Alice adds Bob, then Bob's device will also post, as needed,
 
   - ELSE the chat was green and the members green key changed: 
     **e2ee-broken and "e2ee-activiation" messages (maybe later: a new message)**
+    (#TODO)
     Moves it to the top of the chatlist which is fine. 
 
   - ELSE the chat was green and the members green key did not change: do nothing. 
@@ -92,7 +93,7 @@ When Alice adds Bob, then Bob's device will also post, as needed,
 - IF Bob has no existing 1:1 chat with a member: 
   
   **create a *hidden* 1:1 chat for Bob with the member 
-  and post a "e2ee-activation" message.**
+  and post a "e2ee-activation" message. (#TODO) **
   This does not make the chat visible in the chatlist at all
   but when the chat later breaks, there will be day markers
   providing additional clues when guaranteed e2ee was introduced 
@@ -102,7 +103,7 @@ When Alice adds Bob, then Bob's device will also post, as needed,
 
 While it's probably OK to not do anything wrt green chats during upgrade, 
 **it would also make sense to post "e2ee-activated" messages at least
-for all chats with contacts (that saw messages in the last 30-60 days?)**.
+for all chats with contacts (that saw messages in the last 30-60 days?) (#TODO)**.
 It's a 1.42 feature after all and a one-time (pleasant for many) surprise 
 and likely not too many people have "shitloads" of verifications, anyway. 
 
@@ -111,7 +112,7 @@ and likely not too many people have "shitloads" of verifications, anyway.
 If Bob misses a member-added message, he will subsequently add members
 if they are in the "To" header but not members. He should probably
 also treat the gossiped green keys as 
-if he had received "member-added" messages with them. 
+if he had received "member-added" messages with them (#TODO). 
 
 Note that the "strong" influence of member-added on consistent keys of group members,
 does not imply that member-added messages determine group membership consistency
