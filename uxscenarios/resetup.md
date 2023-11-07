@@ -53,26 +53,28 @@ while scenario 1 has chat messages between these two system messages (see Step 3
 When green-checkmarked Alice adds Bob and sends a member-added message to the group, 
 
 - then Bob will **Unconditionally overwrite green keys and Autocrypt public_keys 
-for all contacts introduced by Alice**. 
+  for all contacts introduced by Alice, 
+  so that Alice and Bob are fully synchronized on group member keys.** 
+  This does not imply that Alice/Bob's now joint view on keys is correct, however.  
+  Bob might have had a "better" or "more recent" key from a contact 
+  than what Alice had provided when adding Bob. This will potentially degrade Bob's 
+  chats with individual group members but this comes with a visible warning 
+  and the advise to Bob to let the degraded contact re-scan at best the group invite code,
+  **so that Bob in turn fixes keys for the degraded contact for Alice and all group members.**
+  Note that when members in a green group have divergent views on (green) keys,
+  two people must eventually be bothered to care for making it consistent. 
+  This "care" can not be avoided as it is the basic building block 
+  for "guaranteed e2e groups safe against active attacks".
+  (With all other messengers each group member must reverify with the degraded contact.)
 
 - all other members receiving "member-bob-added" 
-  will (re)set Bob's green **and Autocrypt key** 
+  will (re)set Bob's green **and Autocrypt key**. 
+  **All group members, including Alice, thus fully agree on the keys for Bob.**
+ 
+**To summarize, after member-added all group members have the same keys for Bob,
+and Bob will have the same keys as Alice for all other members.**
 
-**As a result, all group members will have the same green+Autocrypt keys for Bob
-and Bob will have the same green and Autocrypt key state as Alice:
-Alice and Bob are fully synchronized on group member keys.** 
-This does not imply that Alice/Bob's joint view on keys is correct, however.  
-Bob might have had a "better" or "more recent" key from a contact 
-than what Alice had at the time of adding Bob. This will potentially degrade Bob's 
-chats with individual group members but this comes with a visible warning 
-and the advise to Bob to re-scan the degraded contact, at best from the group invite code,
-so that Bob fixes and refreshes the degraded contact for Alice and all group members. 
-Note that when members in a green group have divergent views on (green) keys,
-two people must eventually be bothered to care for making it consistent. 
-This "care" can not be avoided as it is the basic building block 
-for "guaranteed e2e groups safe against active attacks".
-
-When Alice adds Bob, Bob's device will also post, as needed, 
+When Alice adds Bob, then Bob's device will also post, as needed, 
 "e2ee-activation/broken" messages for each group member C: 
 
 - IF Bob has an existing 1:1 chat with a member: 
@@ -86,8 +88,8 @@ When Alice adds Bob, Bob's device will also post, as needed,
 
 - IF Bob has no existing 1:1 chat with a member: 
   
-     - create a *hidden* 1:1 chat for Bob with the member
-     - post a "e2ee-activation" message. 
+  - create a *hidden* 1:1 chat for Bob with the member
+  - post a "e2ee-activation" message. 
 
 
 ## missed member-added messages, group membership consistency
