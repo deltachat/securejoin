@@ -119,3 +119,15 @@ does not imply that member-added messages determine group membership consistency
 questions in a similar way. 
 
 
+
+# Annex A
+
+**Situation:**
+You accidentally disabled "prefer end to end encryption" in the advanced settings, or just played around with the setting and forgot to enable it again.
+
+**expected:**
+1:1 protected chats keep protected, you send message there and peer still see in your messages "prefer encryption: mutual"
+
+**actual behaviour:**
+your first message in 1:1 protected chat is encrypted and protection is still on, on first reply of an user using old version of DC, protection is broken and their messages are now unencrypted,
+it seems to you that they broke chat protection when in fact it was because of your settings
