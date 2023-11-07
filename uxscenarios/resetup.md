@@ -88,8 +88,8 @@ When Alice adds Bob, then Bob's device will also post, as needed,
 
 - IF Bob has no existing 1:1 chat with a member: 
   
-  - create a *hidden* 1:1 chat for Bob with the member
-  - post a "e2ee-activation" message. 
+  **create a *hidden* 1:1 chat for Bob with the member 
+  and post a "e2ee-activation" message.**
 
 
 ## missed member-added messages, group membership consistency
