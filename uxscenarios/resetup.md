@@ -2,21 +2,23 @@
 # I. Happy path and Resetup Scenarios with green-checkmarked chatting
 
 **Printed in bold** indicates a UX or implementation **difference or gap**
-to the current Android 1.41.5 APK and core 1.129.1.
+to the current Android and core main (2023-11-09, 9775e6c69 resp. 1856c622a).
 
 ## Device Resetup 1: with pre-existing 1:1 chat
 
-1. Alice adds Bob to a guranteed e2ee CHATGROUP 
+1. Alice adds Bob to a guranteed e2ee CHATGROUP where Carol is already a member
+   
+   1.1 **Bob sees the "e2ee-activation" system message in the CHATGROUP**
 
 2. Bob goes to the CHATGROUP contact list 
    and selects the green-checkmarked Carol 
    and looks at her profile.
 
 3. **Carol's contact profile has a green checkmark in the title bar
-   ([#4950](https://github.com/deltachat/deltachat-core-rust/issues/4950)).
+   ([#4950](https://github.com/deltachat/deltachat-core-rust/issues/4950)).**
    Bob selects "send message" and goes to his 1:1 green-checkmarked 
    BOB/CAROL chat which shows the "e2ee-activation" system message
-   before he starts writing (#TODO).** 
+   before he starts writing.
 
 --- time passes and then some more ---
 
@@ -37,8 +39,8 @@ to the current Android 1.41.5 APK and core 1.129.1.
 
 ## Device Resetup 2: without existing 1:1 chats
 
-**Resetup 2 scenario produces the same series of steps as the previous Resetup-Scenario 1, 
-except step 3 didn't happen because Carol and Bob never exchanged 1:1 messages.**
+Resetup 2 scenario produces the same series of steps as the previous Resetup-Scenario 1, 
+except step 3 didn't happen because Carol and Bob never exchanged 1:1 messages.
 
 **Note that Bob in step 7 will still see "e2ee-activiation" and "e2ee-broken" messages
 even if the chat only appeared for Bob due to Carol's "I can't read" message. 
@@ -47,6 +49,9 @@ in scenario 2 there are no messages between the "e2ee-activation" and "e2ee-brok
 while scenario 1 has chat messages between them (due to Step 3) (#TODO).**
 
 # II. Implementation considerations 
+
+**Printed in bold** indicates a UX or implementation **difference or gap**
+to the current Android 1.41.5 APK and core 1.129.1.
 
 ## Eventual group key consistency by providing "actionable" items to users
 
