@@ -64,14 +64,15 @@ When green-checkmarked Alice adds Bob and sends a member-added message to the gr
 
 - then Bob will **store the gossip keys for group members as a secondary key 
   unless he knows them already as a primary key. As soon as he sees direct messages
-  from a secondary-verified contact the the secondary key gets promoted to become
+  from a secondary-verified contact the secondary key gets promoted to become
   the primary** (see https://github.com/deltachat/deltachat-core-rust/pull/4898).
 
 - all other members receiving "member-bob-added" 
-  will also add Bob's verified key into their secondary key slot (also #4898)
+  will also add the key Alice gossipped for Bob
+  into their secondary verified key slot for Bob (also #4898)
   and promote it to primary when seeing a direct message from Bob. 
  
-Note that 1:1 chats might be "e2ee-broken" between Bob and  group members
+Note that 1:1 chats might be "e2ee-broken" between Bob and group members
 if either side had an old primary verified key and a newer autocrypt-direct key. 
 The secondary-gossip key approach does not solve that but again, 
 as soon as the 1:1 chat partners see direct messages from each other 
