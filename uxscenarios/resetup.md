@@ -36,6 +36,11 @@ to the current Android and core main (2023-11-09, 9775e6c69 resp. 1856c622a).
    that he needs to re-invite Carol to the group,
    or at least perform a 1:1 QR scan to fix their 1:1 chat.
 
+8. After re-scanning Carol into the group, she will be able to 
+   decrypt all messages and as soon as she sends a message to the group
+   everyone will recognize that Bob's verified key introduction
+   was valid and enable green checkmark for Carol. 
+
 
 ## Device Resetup 2: without existing 1:1 chats
 
@@ -57,45 +62,23 @@ to the current Android 1.41.5 APK and core 1.129.1.
 
 When green-checkmarked Alice adds Bob and sends a member-added message to the group, 
 
-- then Bob will **Unconditionally overwrite green keys and Autocrypt public_keys 
-  for all contacts introduced by Alice, 
-  so that Alice and Bob are fully synchronized on group member keys. (#TODO)** 
-  This does not imply that Alice/Bob's now joint view on keys is correct, however.  
-  Bob might have had a "better" or "more recent" key from a contact 
-  than what Alice had provided when adding Bob. This will potentially degrade Bob's 
-  chats with individual group members but this comes with a visible warning 
-  and the advise to Bob to let the degraded contact re-scan at best the group invite code,
-  **so that Bob in turn fixes keys for the degraded contact for Alice and all group members.**
-  Note that when members in a green group have divergent views on (green) keys,
-  two people must eventually be bothered to make it consistent.
-  This "care" can not be avoided as it is the basic building block 
-  for "guaranteed e2e groups safe against active attacks".
-  (With all other messengers each group member 
-  must individually reverify with the degraded contact.)
+- then Bob will **store the gossip keys for group members as a secondary key 
+  unless he knows them already as a primary key. As soon as he sees direct messages
+  from a secondary-verified contact the the secondary key gets promoted to become
+  the primary** (see https://github.com/deltachat/deltachat-core-rust/pull/4898).
 
 - all other members receiving "member-bob-added" 
-  will (re)set Bob's green **and Autocrypt key** (#TODO). 
-  **All group members, including Alice, thus fully agree on the keys for Bob.**
+  will also add Bob's verified key into their secondary key slot (also #4898)
+  and promote it to primary when seeing a direct message from Bob. 
  
-**To summarize, after member-added all group members have the same keys for Bob,
-and Bob will have the same keys as Alice for all other members.**
+Note that 1:1 chats might be "e2ee-broken" between Bob and  group members
+if either side had an old primary verified key and a newer autocrypt-direct key. 
+The secondary-gossip key approach does not solve that but again, 
+as soon as the 1:1 chat partners see direct messages from each other 
+the "e2e-guaranteed" message will show. 
 
-When Alice adds Bob, then Bob's device will also post, as needed, 
-"e2ee-activation/broken" messages for each group member C: 
-
-- IF Bob has an existing 1:1 chat with a member: 
-
-  - IF the chat was not green, post a "e2ee-activated" message into it. 
-    Moves it to the top of the chatlist which is fine. 
-
-  - ELSE the chat was green and the members green key changed: 
-    **e2ee-broken and "e2ee-activiation" messages (maybe later: a new message)**
-    (#TODO)
-    Moves it to the top of the chatlist which is fine. 
-
-  - ELSE the chat was green and the members green key did not change: do nothing. 
-
-- IF Bob has no existing 1:1 chat with a member: 
+- IF Bob has no existing 1:1 chat with a member of a green group where he was
+  joined: 
   
   **create a *hidden* 1:1 chat for Bob with the member 
   and post a "e2ee-activation" message. (#TODO) **
@@ -111,16 +94,4 @@ While it's probably OK to not do anything wrt green chats during upgrade,
 for all chats with contacts (that saw messages in the last 30-60 days?) (#TODO)**.
 It's a 1.42 feature after all and a one-time (pleasant for many) surprise 
 and likely not too many people have "shitloads" of verifications, anyway. 
-
-## missed member-added messages, group membership consistency
-
-If Bob misses a member-added message, he will subsequently add members
-if they are in the "To" header but not members. He should probably
-also treat the gossiped green keys as 
-if he had received "member-added" messages with them (#TODO). 
-
-Note that the "strong" influence of member-added on consistent keys of group members,
-does not imply that member-added messages determine group membership consistency
-questions in a similar way. 
-
 
