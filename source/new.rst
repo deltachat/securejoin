@@ -684,13 +684,6 @@ that have different security implications:
   We note,
   that Bob, will have to sign the message
   containing the gossip fake keys.
-  In the following section
-  we introduce `history verification`
-  which will detect such attacks after the fact.
-  Performing a history verification with Alice
-  will inform Carol about the MITM key introduced by Bob.
-  Bob's signature serves as evidence
-  that Bob gossiped the wrong key for Alice.
 
   Trusting all peers to verify keys
   also allows faster recovery

@@ -33,7 +33,7 @@ To design SecureJoin protocols,
 we consider usability, cryptographic and implementation aspects simultaneously,
 because they constrain and complement each other.
 Note that the basis for SecureJoin protocols was laid in the first two sections of
-[CounterMitm](https://countermitm.readthedocs.io/en/latest/)
+`CounterMitm <https://countermitm.readthedocs.io/en/latest/>`_
 which was created by reseachers of NEXTLEAP,
 a 2016-2018 project on privacy and decentralized messaging,
 funded through the EU Horizon 2020 programme.
@@ -53,8 +53,6 @@ To achieve these goals,
 an active adversary might try, for example,
 to perform a machine-in-the-middle attack on the key exchange protocol
 between peers.
-We consider this approach effective against mass surveillance of
-the encrypted email content while preventing additional meta data leakage.
 
 To enable secure key-exchange and key-verification between peers,
 we assume that peers have access to a *out-of-band*
