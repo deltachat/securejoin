@@ -6,8 +6,12 @@
 Introduction
 ============
 
-This document considers how
-to secure Autocrypt_-capable mail apps against active network attackers.
+This document documents and discusses SecureJoin protocols as implemented
+by the `Delta Chat messenger <https://delta.chat>`_
+to provide usable protections for users against active network attackers.
+
+In particular, this document considers how to secure Autocrypt_-capable mail apps
+such as Delta Chat against active network attackers.
 Autocrypt aims to achieve convenient end-to-end encryption of e-mail.
 The Level 1 Autocrypt specification offers users opt-in e-mail encryption,
 but only considers passive adversaries.
@@ -18,30 +22,21 @@ are not considered in the Level 1 specification.
 Yet,
 such active attackers might undermine the security of Autocrypt.
 Therefore,
-we present and discuss new ways to prevent and detect active
-network attacks against Autocrypt_-capable mail apps.
+we present and discuss SecureJoin as a new practically usable
+way to prevent and detect active network attacks
+against Autocrypt_-capable mail apps.
 
-..
-  TODO: Very out of the blue paragraph
-
-We aim to help establish a *reverse panopticon*:
-a network adversary should not be able to determine whether peers
-discover malfeasant manipulations,
-or even whether they exchange information to investigate attacks.
-If designed and implemented successfully it means that those
-who (can) care for detecting malfeasance also help to secure the
-communications of others in the ecosystem.
-
-This document reflects current research of the NEXTLEAP EU project.
-The NEXTLEAP project aims to secure Autocrypt beyond Level 1.
-To this end, this document proposes new Autocrypt protocols that focus on
-securely exchanging and verifying keys.
-To design these protocols,
-we considered usability, cryptographic and implementation aspects
-simultaneously,
+This document reflects the current state of implementation (Delta Chat app version 1.42)
+and may evolve in the future
+to address user feedback, implementation and security considerations.
+To design SecureJoin protocols,
+we consider usability, cryptographic and implementation aspects simultaneously,
 because they constrain and complement each other.
-Some of the proposed protocols are already implemented;
-we link to the repositories in the appropriate places.
+Note that the basis for SecureJoin protocols was laid in the first two sections of
+[CounterMitm](https://countermitm.readthedocs.io/en/latest/)
+which was created by reseachers of NEXTLEAP,
+a 2016-2018 project on privacy and decentralized messaging,
+funded through the EU Horizon 2020 programme.
 
 
 Attack model and terminology
