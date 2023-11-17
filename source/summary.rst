@@ -71,13 +71,14 @@ to also work under a threat of observation.
 
 Passive attackers such as service providers can still learn who
 communicates with whom at what time and the approximate size of the messages.
-We recommend using additional meassures such as encrypting the subject
-to prevent further data leakage.
-This is beyond the scope of this document though.
 
 Because peers learn the content of the messages,
 we assume that all peers are honest.
 They do not collaborate with the adversary and follow the protocols described in this document.
+
+..
+  TODO: Explain 'verified' and 'protected' terminology in the code,
+  and 'guaranteed' and 'green checkmark' terminology in thd UI
 
 Problems of current key-verification techniques
 +++++++++++++++++++++++++++++++++++++++++++++++
@@ -103,6 +104,8 @@ We observe the following issues with these schemes:
   :math:`N(N-1) / 2` verifications in total.
   Thus this approach is impractical even for moderately sized groups.
 
+..
+  TODO: Move next point to a new 'Known limitations and issues' section at the end
 - The verification of the fingerprint only checks the current keys.
   Since protocols do not store any historical information about keys,
   the verification can not detect if there was a past temporary

@@ -8,8 +8,7 @@ Securing communications against network adversaries
 To withstand network adversaries,
 peers must verify each other's keys
 to establish trustable e2e-encrypted communication. In this section we describe
-protocols to securely setup a contact, to securely add a user to a group, and
-to verify key history.
+protocols to securely setup a contact and to securely add a user to a group.
 
 Establishing a trustable e2e-encrypted communication channel is
 particularly difficult
@@ -59,7 +58,7 @@ nor on the web of trust.
 It thus provides a good basis
 to consider new key verification approaches.
 To avoid the difficulties around talking about keys with users,
-we suggest new protocols
+we implemented new protocols
 which perform key verification as part of other workflows,
 namely:
 
@@ -71,23 +70,10 @@ These new workflows require *administrative* messages
 to support the authentication and security of the key exchange process.
 These administrative messages are sent between devices,
 but are not shown to the user as regular messages.
-This is a challenge,
-because some e-mail apps display all messages
-(including machine-generated ones for rejected or non-delivered mails)
-without special rendering of the content.
-Only some messengers,
-such as `Delta-chat <https://delta.chat>`_,
-already use administrative messages, e.g., for group member management.
 
 The additional advantage of using administrative messages is
 that they significantly improve usability by reducing the overall number of actions
 to by users.
-In the spirit of the strong UX focus of the Autocrypt specification,
-however,
-we suggest
-to only exchange administrative messages with peers
-when there there is confidence they will not be displayed "raw" to users,
-and at best only send them on explicit request of users.
 
 Note that automated processing of administrative messages
 opens up a new attack vector:
@@ -95,6 +81,8 @@ malfeasant peers can try to inject adminstrative messages
 in order
 to impersonate another user or
 to learn if a particular user is online.
+..
+  TODO: Link to PR/issue about prevent-online-leak
 
 All protocols that we introduce in this section are *decentralized*.
 They describe
@@ -146,7 +134,7 @@ messages.
 .. figure:: ../images/secure_channel_foto.jpg
    :width: 200px
 
-   Setup Contact protocol step 2 with https://delta.chat.
+   Setup Contact protocol step 2.
 
 The protocol follows a single simple UI workflow:
 A peer "shows" bootstrap data
@@ -197,8 +185,6 @@ Alice and Bob.
 
    - Alice's e-mail address (both name and routable address),
 
-   - A type ``TYPE=vc-invite`` of the bootstrap code
-
    - a challenge ``INVITENUMBER`` of at least 8 bytes.
      This challenge is used by Bob's device in step 2b
      to prove to Alice's device
@@ -212,12 +198,13 @@ Alice and Bob.
      which Bob's device uses in step 4
      to authenticate itself against Alice's device.
 
-   - optionally add metadata such as ``INVITE-TO=groupname``
-
-   b) Per ``INVITENUMBER`` Alices device will keep track of:
-   - the associated ``AUTH`` secret
+   b) In the ``tokens`` SQL table, Alices device will keep track of:
+   - the namespace (``INVITENUMBER`` or ``AUTH``)
+   - if this is a `verified-group`_ invite: the group chat id
+   - the token itself
    - the time the contact verification was initiated.
-   - the metadata provided.
+     ..
+       TODO: Double-check if ``tokens`` table was explained correctly
 
 2. Bob receives the bootstrap code and
 
