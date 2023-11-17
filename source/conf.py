@@ -21,6 +21,7 @@ import os
 extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
+    'sphinxcontrib.inkscapeconverter',
     'sphinx.ext.mathjax',
 ]
 
@@ -235,7 +236,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'SecureJoin.tex',
-    u'Detecting and preventing active attacks against Autocrypt',
+    u'SecureJoin: Protecting chat messaging against network adversaries',
      u'Delta Chat implementors', 'howto'),
 ]
 

@@ -15,9 +15,9 @@ funded through the EU Horizon 2020 programme.
 
 There are two public web pages: 
 
-- https://securejoin.delta.chat
-
 - https://securejoin.readthedocs.io/en/latest/
+
+- https://securejoin.delta.chat
 
 
 ## Editing the documents 
@@ -41,10 +41,10 @@ of the existing text.  You may also look at this
 For the images we use inkscape to convert them from svg to pdf.
 
 In order to create the documents you will need make, sphinx and inkscape installed
-on your system. On a debian based system you can achieve this with
+on your system. On a Ubuntu/Debian based system you can achieve this with something like: 
 
 ```sh
-sudo apt install python-sphinx inkscape
+sudo apt install python3-sphinx inkscape python3-sphinxcontrib.svg2pdfconverter
 ```
 
 From there on creating the pdf should be a matter of running
