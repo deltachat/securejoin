@@ -7,11 +7,9 @@ Introduction
 ============
 
 This document documents and discusses SecureJoin protocols as implemented
-by the `Delta Chat messenger <https://delta.chat>`_
-to provide usable protections for users against active network attackers.
-
+by the `Delta Chat messenger <https://delta.chat>`_.
 In particular, this document considers how to secure Autocrypt_-capable mail apps
-such as Delta Chat against active network attackers.
+against active network attackers.
 Autocrypt aims to achieve convenient end-to-end encryption of e-mail.
 The Level 1 Autocrypt specification offers users opt-in e-mail encryption,
 but only considers passive adversaries.
