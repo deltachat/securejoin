@@ -204,7 +204,7 @@ Alice and Bob.
    - the token itself
    - the time the contact verification was initiated.
      ..
-       TODO: Double-check if ``tokens`` table was explained correctly
+       TODO: Double-check if this explanation of the ``tokens`` table is correct
 
 2. Bob receives the bootstrap code and
 
@@ -223,17 +223,19 @@ Alice and Bob.
    If the ``INVITENUMBER`` does not match
    then Alice terminates the protocol.
 
-   b) If she recognizes the ``INVITENUMBER`` from step 1
-   she checks that the invite has not expired.
-   If the timestamp associated with the ``INVITENUMBER``
-   is longer ago than a given time
-   Alice terminates the protocol.
+   b) (removed)
 
    c) She then processes Bob's Autocrypt key.
 
    d) She uses this key
    to create an encrypted "vc-auth-required" message
    containing her own Autocrypt key, which she sends to Bob.
+..
+  TODO:
+  Step 3c) actually happens before 3a) in the code,
+  i.e. Alice first processes Bob's Autocrypt key and then looks up the INVITENUMBER.
+..
+  TODO: Mention somewhere that it's a known tradeoff that invitenumbers don't expire.
 
 4. Bob receive the "vc-auth-required" message,
    decrypts it,
@@ -241,7 +243,7 @@ Alice and Bob.
 
    a) If verification fails,
       Bob gets a screen message
-      "Error: Could not setup a secure connection to Alice"
+      "Cannot establish guaranteed end-to-end encryption with Alice"
       and the protocol terminates.
 
    b) Otherwise Bob's device sends back
@@ -258,9 +260,11 @@ Alice and Bob.
 
    b) If any verification fails,
    Alice's device signals
-   "Could not establish secure connection to Bob"
+   "Cannot establish guaranteed end-to-end encryption with Bob"
    and the protocol terminates.
 
+..
+  TODO: We don't show "Secure contact with Bob <bob-adr> established"
 6. If the verification succeeds on Alice's device
 
    a) shows "Secure contact with Bob <bob-adr> established".
@@ -415,7 +419,9 @@ we do not consider dropping of messages further.
 
 Replay attacks and conflicts
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+..
+  TODO: This complete section is not true for our implementation
+  since we don't let keys expire.
 Alices device records the time a contact verification was initiated.
 It also verifies it has not expired and clears the data after
 completion.
@@ -623,7 +629,11 @@ We therefore do not ask the user questions
 about how much they trust their peers.
 
 Therefore two strategies remain
-that have different security implications:
+that have different security implications.
+
+Delta Chat chose the
+"Ignoring infiltrators, focusing on message transport attacks first"
+strategy.
 
 - **Restricting verification reuse accross groups**
   Since we share the content of the group
@@ -683,7 +693,8 @@ that have different security implications:
 
 Dealing with key loss and compromise
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+..
+  TODO describe what link2xt implemented (secondary keys, Member-added etc)
 If a user looses their device
 they can setup a new device
 and regain access to their inbox.
@@ -725,6 +736,8 @@ and goes beyond the scope of our current work.
 Notes on the verified group protocol
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+..
+  TODO: We already implemented this:
 - **More Asynchronous UI flow**:
   All steps after 2 (the sending of adminstrative messages)
   could happen asynchronously and in the background.
