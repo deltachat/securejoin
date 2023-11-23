@@ -23,6 +23,7 @@ extensions = [
     'sphinx.ext.todo',
     'sphinxcontrib.inkscapeconverter',
     'sphinx.ext.mathjax',
+    'sphinxcontrib.mermaid',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
