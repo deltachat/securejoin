@@ -165,10 +165,29 @@ An attacker who can compromise both channels
 can inject wrong key material
 and convince the peer to verify it.
 
-.. figure:: ../images/contact.svg
+.. mermaid::
    :alt: Sequence diagram of UI and administrative message flow
+   :caption: UI and administrative message flow of contact setup
 
-   UI and administrative message flow of contact setup
+   sequenceDiagram
+      participant A as Alice
+      participant B as Bob
+      A-->>B: 1.a) bootstrap code
+      Note over B: 2.a) check for existing key
+      B->>A: 2.b) vc-request message with INVITENUMBER
+      Note over A: 3.a) look up bootstrap by INVITENUMBER
+      Note over A: 3.b) abort if invite expired
+      Note over A: 3.c) process AC header
+      A->>B: 3.d) vc-auth-required message with AC header
+      Note over B: 4.a) abort if key does not match FP from bootstrap
+      B->>A: 4.b) vc-request-with-auth with Bob_FP and AUTH
+      Note over A: 5.a) verify AUTH and key
+      Note over A: 5.b) on failure alert user and abort
+      Note over A: 6.a) signal success to user
+      A->>B: 6.b) vc-contact-confirm message
+      Note over A: 6.c) clear bootstrap data for INVITENUMBER
+      Note over B: 7. signal success to user
+
 
 Here is a conceptual step-by-step example
 of the proposed UI and administrative message workflow

@@ -1,2 +1,3 @@
 sphinx
 sphinxcontrib.svg2pdfconverter
+sphinxcontrib-mermaid
