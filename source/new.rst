@@ -176,7 +176,7 @@ and convince the peer to verify it.
       Note over B: 2.a) check for existing key
       B->>A: 2.b) vc-request message with INVITENUMBER
       Note over A: 3.a) look up bootstrap by INVITENUMBER
-      Note over A: 3.b) abort if invite expired
+      Note over A: 3.b) (removed)
       Note over A: 3.c) process AC header
       A->>B: 3.d) vc-auth-required message with AC header
       Note over B: 4.a) abort if key does not match FP from bootstrap
@@ -185,7 +185,6 @@ and convince the peer to verify it.
       Note over A: 5.b) on failure alert user and abort
       Note over A: 6.a) signal success to user
       A->>B: 6.b) vc-contact-confirm message
-      Note over A: 6.c) clear bootstrap data for INVITENUMBER
       Note over B: 7. signal success to user
 
 
@@ -289,8 +288,6 @@ Alice and Bob.
    a) shows "Secure contact with Bob <bob-adr> established".
 
    b) sends Bob a "vc-contact-confirm" message.
-
-   c) also removes the data associated with ``INVITENUMBER``.
 
 7. Bob's device receives "vc-contact-confirm" and shows
    "Secure contact with Alice <alice-adr> established".
@@ -441,6 +438,8 @@ Replay attacks and conflicts
 ..
   TODO: This complete section is not true for our implementation
   since we don't let keys expire.
+  Probably we should just remove it.
+
 Alices device records the time a contact verification was initiated.
 It also verifies it has not expired and clears the data after
 completion.
@@ -467,6 +466,12 @@ as verified contacts with Alice.
 
 Business Cards
 ~~~~~~~~~~~~~~
+..
+  TODO this section is a bit interesting,
+  but unrelated to our implementation,
+  more a future possibility.
+  Maybe we should just remove it.
+
 
 QR-codes similar to the ones used for verified contact
 could be used to print on business cards.
@@ -551,6 +556,9 @@ in the metadata part of the bootstrap code.
 
 More precisely:
 
+..
+  TODO: Alice also adds the grpid, not only the name
+  See src/securejoin.rs:103
 - in step 1 Alice adds the metadata
   ``INVITE=<groupname>``.
   Where ``<groupname>`` is the name of the group ``GROUP``.
@@ -559,6 +567,15 @@ More precisely:
   before his device sends the ``vc-request`` message.
   If Bob declines processing aborts.
 
+..
+  TODO: The following is different in Delta Chat:
+  in step 4 Bob sends the grpid in the Secure-Join-Group header
+  and in step 5 Alice adds Bob to this group.
+  That sounds unsafe at first because Bob can just ask Alice
+  to add him to any group he wants.
+  It's not as unsafe as it sounds at first since Bob usually doesn't
+  know the grpid of groups he's not a part of.
+  Still, I'm wondering if we should fix this in DC.
 - in step 5 Alice looks up the metadata
   associated with the ``INVITENUMBER``.
   If Alice sees the ``INVITE=<groupname>``
@@ -575,6 +592,11 @@ The protocol then continues as described in the following section
 
 Joining a verified group ("secure-join")
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+..
+  TODO: This whole section is not how it's implemented in DC.
+  Also see https://github.com/deltachat/deltachat-core-rust/issues/4991
+  for an issue that's going to bring DC's implementation a little bit
+  closer to what's described here.
 
 In order to add Bob to a group Alice first needs to make sure
 she has a verified key for Bob.
@@ -714,6 +736,11 @@ Dealing with key loss and compromise
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ..
   TODO describe what link2xt implemented (secondary keys, Member-added etc)
+  See https://github.com/deltachat/deltachat-core-rust/issues/4541,
+  https://github.com/deltachat/deltachat-core-rust/pull/4910,
+  https://github.com/deltachat/deltachat-core-rust/pull/4898, and
+  https://github.com/deltachat/deltachat-core-rust/pull/4970
+
 If a user looses their device
 they can setup a new device
 and regain access to their inbox.
@@ -754,9 +781,10 @@ and goes beyond the scope of our current work.
 
 Notes on the verified group protocol
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 ..
-  TODO: We already implemented this:
+  TODO: We already implemented the first point
+  but not the others - this should be made clear somehow.
+
 - **More Asynchronous UI flow**:
   All steps after 2 (the sending of adminstrative messages)
   could happen asynchronously and in the background.
@@ -807,6 +835,8 @@ Notes on the verified group protocol
 
 Autocrypt and verified key state
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+..
+  TODO: I think we can just remove this section?
 
 Verified key material
 |--| whether from verified contacts or verified groups |--|
@@ -845,3 +875,9 @@ even before the next verification has taken place.
 .. |--| unicode:: U+2013   .. en dash
 .. |---| unicode:: U+2014  .. em dash, trimming surrounding whitespace
    :trim:
+
+..
+  TODO:
+  - Mention verified 1:1 chats
+  - Mention in which files it's implemented in deltachat-core-rust
+  - Mention that it's stored in the `acpeerstates` sql table
