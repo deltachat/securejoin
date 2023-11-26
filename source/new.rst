@@ -312,13 +312,6 @@ and send the message along without other changes.
 In step 4.b they could then modify the encrypted content to include
 their own keys fingerprint rather than ``Bob_FP``.
 
-..
-  TODO: In case of such an attack
-  the OpenPGP signature on the message body
-  would be with Bob's original key.
-  We could check the signature is made with the right key
-  rather than adding the additional, somewhat redundant Bob_FP.
-
 In the case of OpenPGP non-malleability is achieved
 with Modification Detection Codes (MDC - see section 5.13 and 5.14 of RFC 4880).
 Implementers need to make sure
@@ -329,9 +322,6 @@ and is therefore recommended if possible.
 
 An active attacker cannot break the security of the Setup Contact protocol
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-..
-  TODO: Network adversaries *can* learn who is authenticating with whom
 
 Recall that an active attacker can
 read, modify, and create messages
@@ -509,9 +499,6 @@ Verified Group protocol
 We introduce a new secure **verified group** that enables secure
 communication among the members of the group.
 Verified groups provide these simple to understand properties:
-
-..
-  TODO: Does autocrypt also protect against modification of group messages?
 
 1. All messages in a verified group are end-to-end encrypted
    and secure against active attackers.
