@@ -16,7 +16,7 @@ in group communications
 where more than two peers communicate with each other.
 Existing messaging systems usually require peers to verify keys with every other
 peer to assert that they have a trustable e2e-encrypted channel.
-This is highly unpractical.
+This is highly impractical.
 First,
 the number of verifications that a single peer must perform becomes
 too costly even for small groups.
@@ -72,8 +72,7 @@ These administrative messages are sent between devices,
 but are not shown to the user as regular messages.
 
 The additional advantage of using administrative messages is
-that they significantly improve usability by reducing the overall number of actions
-to by users.
+that they significantly improve usability by reducing the overall number of user actions.
 
 Note that automated processing of administrative messages
 opens up a new attack vector:
@@ -83,6 +82,7 @@ to impersonate another user or
 to learn if a particular user is online.
 ..
   TODO: Link to PR/issue about prevent-online-leak
+  TODO: Add new attack vectors to known limitations in summary.rst
 
 All protocols that we introduce in this section are *decentralized*.
 They describe
@@ -91,14 +91,14 @@ without having to rely on services from third parties.
 Our verification approach thus fits into the Autocrypt key distribution model
 which does not require extra services from third parties either.
 
-Autocrypt Level 1 focusses on passive attacks
+While Autocrypt Level 1 focusses on passive attacks
 such as sniffing the mail content
-by a provider.
-Active attacks are outside of the scope
+by a provider,
+active attacks are outside of the scope
 and can be carried out automatically
 by replacing Autocrypt headers.
 
-Here we aim to increase the costs of active attacks
+With the SecureJoin protocols we aim to increase the costs of active attacks
 by introducing a second channel
 and using it to verify the Autocrypt headers
 transmitted in-band.
@@ -159,7 +159,7 @@ An attacker who can alter messages
 but has no way of reading or manipulating the second channel
 can prevent the verification protocol
 from completing successfully
-by droping or altering messages.
+by dropping or altering messages.
 
 An attacker who can compromise both channels
 can inject wrong key material
@@ -187,6 +187,8 @@ and convince the peer to verify it.
       A->>B: 6.b) vc-contact-confirm message
       Note over B: 7. signal success to user
 
+..
+  TODO: do we still do the vc-contact-confirm message?
 
 Here is a conceptual step-by-step example
 of the proposed UI and administrative message workflow
@@ -233,7 +235,7 @@ Alice and Bob.
    b) otherwise Bob's device sends
       a cleartext "vc-request" message to Alice's e-mail address,
       adding the ``INVITENUMBER`` from step 1 to the message.
-      Bob's device automatically includes Bob's AutoCrypt key in the message.
+      Bob's device automatically includes Bob's Autocrypt key in the message.
 
 3. Alice's device receives the "vc-request" message.
 
@@ -252,10 +254,13 @@ Alice and Bob.
   TODO:
   Step 3c) actually happens before 3a) in the code,
   i.e. Alice first processes Bob's Autocrypt key and then looks up the INVITENUMBER.
+  We should change the deltachat core here, not the spec;
+  For other implementors the deltachat-internal order of events doesn't matter,
+  so we don't risk compability.
 ..
   TODO: Mention somewhere that it's a known tradeoff that invitenumbers don't expire.
 
-4. Bob receive the "vc-auth-required" message,
+4. Bob receives the "vc-auth-required" message,
    decrypts it,
    and verifies that Alice's Autocrypt key matches ``Alice_FP``.
 
@@ -345,14 +350,14 @@ we do not consider dropping of messages further.
 
 1. The adversary cannot impersonate Alice to Bob,
    that is,
-   it cannot replace Alice's key with a key Alice-MITM known to the adversary.
+   it cannot replace Alice's key with a ``Alice-MITM`` key known to the adversary.
    Alice sends her key to Bob in the encrypted "vc-auth-required" message
    (step 3).
    The attacker can replace this message with a new "vc-auth-required" message,
    again encrypted against Bob's real key,
-   containing a fake Alice-MITM key.
-   However, Bob will detect this modification step 4a,
-   because the fake Alice-MITM key does not match
+   containing a fake ``Alice-MITM`` key.
+   However, Bob will detect this modification during step 4a,
+   because the fake ``Alice-MITM`` key does not match
    the fingerprint ``Alice_FP``
    that Alice sent to Bob in the bootstrap code.
    (Recall that the bootstrap code is transmitted
@@ -361,15 +366,15 @@ we do not consider dropping of messages further.
 
 2. The adversary also cannot impersonate Bob to Alice,
    that is,
-   it cannot replace Bob's key with a key Bob-MITM known to the adversary.
+   it cannot replace Bob's key with a ``Bob-MITM`` key known to the adversary.
    The cleartext "vc-request" message, sent from Bob to Alice in step 2,
    contains Bob's key.
    To impersonate Bob,
    the adversary must substitute this key with
-   the fake Bob-MITM key.
+   the fake ``Bob-MITM`` key.
 
    In step 3,
-   Alice cannot distinguish the fake key Bob-MITM inserted by the adversary
+   Alice cannot distinguish the fake key ``Bob-MITM`` inserted by the adversary
    from Bob's real key,
    since she has not seen Bob's key in the past.
    Thus, she will follow the protocol
@@ -396,15 +401,15 @@ we do not consider dropping of messages further.
    * The adversary modifies
      the "vc-request-with-auth" message
      to replace ``Bob_FP`` (which it knows) with the fingerprint of the fake
-     Bob-MITM key.
+     ``Bob-MITM`` key.
      However,
      the encryption scheme is non-malleable,
      therefore,
      the adversary cannot modify the message, without being detected by Alice.
 
    * The adversary drops Bob's message and
-     create a new fake message containing
-     the finger print of the fake key Bob-MITM and
+     creates a new fake message containing
+     the fingerprint of the fake ``Bob-MITM`` key and
      a guess for the challenge ``AUTH``.
      The adversary cannot learn the challenge ``AUTH``:
      it cannot observe the bootstrap code
