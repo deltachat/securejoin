@@ -10,13 +10,13 @@ peers must verify each other's keys
 to establish trustable e2e-encrypted communication. In this section we describe
 protocols to securely setup a contact and to securely add a user to a group.
 
-Establishing a trustable e2e-encrypted communication channel is
+Establishing trustable e2e-encrypted communication is
 particularly difficult
 in group communications
 where more than two peers communicate with each other.
 Existing messaging systems usually require peers to verify keys with every other
-peer to assert that they have a trustable e2e-encrypted channel.
-This is highly impractical.
+peer to assert that they have guaranteed e2e-encryption.
+This is highly unpractical.
 First,
 the number of verifications that a single peer must perform becomes
 too costly even for small groups.
@@ -99,7 +99,7 @@ and can be carried out automatically
 by replacing Autocrypt headers.
 
 With the SecureJoin protocols we aim to increase the costs of active attacks
-by introducing a second channel
+by introducing a second out-of-band channel
 and using it to verify the Autocrypt headers
 transmitted in-band.
 
@@ -138,7 +138,7 @@ messages.
 
 The protocol follows a single simple UI workflow:
 A peer "shows" an invite code once
-that is then "read" by the other peer through a second channel.
+that is then "read" by the other peer through an out-of-band channel.
 This means that,
 as opposed to current fingerprint verification workflows,
 the protocol only runs once instead of twice,
@@ -146,17 +146,18 @@ yet results in the two peers having verified keys of each other.
 
 Between mobile phones,
 showing and scanning a QR code
-constitutes a second channel,
-but transferring data via USB, Bluetooth, WLAN channels or phone calls
+constitutes an out-of-band channel,
+but transferring data via USB, Bluetooth, WLAN
+or other network-adversary resilient messengers
 is possible as well.
 
 Recall that
 we assume that
 our active attacker *cannot* observe or modify data transferred
-via the second channel.
+via the out-of-band channel.
 
 An attacker who can alter messages
-but has no way of reading or manipulating the second channel
+but has no way of reading or manipulating the out-of-band channel
 can prevent the verification protocol
 from completing successfully
 by dropping or altering messages.
@@ -195,7 +196,7 @@ of the proposed UI and administrative message workflow
 for establishing a secure contact between two contacts,
 Alice and Bob.
 
-1. Alice sends a invite code to Bob via the second channel.
+1. Alice sends a invite code to Bob via the out-of-band channel.
 
    a) The invite code consists of:
 
@@ -332,7 +333,7 @@ Recall that an active attacker can
 read, modify, and create messages
 that are sent via a regular channel.
 The attacker cannot observe or modify the invite code
-that Alice sends via the second channel.
+that Alice sends via the out-of-band channel.
 We argue that such an attacker cannot
 break the security of the Setup Contact protocol,
 that is, the attacker cannot
@@ -361,7 +362,7 @@ we do not consider dropping of messages further.
    the fingerprint ``Alice_FP``
    that Alice sent to Bob in the invite code.
    (Recall that the invite code is transmitted
-   via the second channel
+   via the out-of-band channel
    the adversary cannot modify.)
 
 2. The adversary also cannot impersonate Bob to Alice,
@@ -413,7 +414,7 @@ we do not consider dropping of messages further.
      a guess for the challenge ``AUTH``.
      The adversary cannot learn the challenge ``AUTH``:
      it cannot observe the invite code
-     transmitted via the second channel in step 1,
+     transmitted via the out-of-band in step 1,
      and it cannot decrypt the message "vc-request-with-auth".
      Therefore,
      this guess will only be correct with probability :math:`2^{-64}`.
@@ -702,7 +703,7 @@ strategy.
 
   In this case keys can be reused accross verified groups.
   Active attacks from an adversary
-  who can only modify messages in the first channel
+  who can only modify messages in the regular transport channel
   are still impossible.
 
   A malicious verified contact may inject MITM keys.
