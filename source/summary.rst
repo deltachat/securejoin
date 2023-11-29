@@ -42,11 +42,11 @@ Attack model and terminology
 
 We consider
 
-- *Peer* devices that use the network or *first channel* for transporting messages
+- *Peer* devices that use network messages for transporting messages
   and for key-exchange in order to establish end-to-end encryption.
 
 - A *network adversary* that can read, modify, and create
-  network messages on the *first channel*.
+  network messages.
   Examples of such an adversary are an ISP, an e-mail provider, an AS,
   or an eavesdropper on a wireless network.
   The goal of the adversary is to i) read the content of messages,
@@ -57,32 +57,32 @@ We assume that
 - All peers are honest and do not collaborate with the network adversary.
 
 - A Peer (Alice) can send a single QR-code sized *invite code*
-  in a *second channel* to another peer (Bob).
+  in an *out-of-band channel* to another peer (Bob).
   The attacker can not observe or modify the invite code.
 
 The SecureJoin protocols allow *peer* devices
-to establish guaranteed end-to-end encryption
-that is resistant to machine-in-the-middle attacks by the network adversary,
+to establish *guaranteed end-to-end encryption*
+that is resistant to machine-in-the-middle attacks by
 preventing the adversary from reading messages or impersonating honest peers.
 
 Passive adversaries such as message transport providers can still learn
 which peers communicate with each other,
 at what time and the approximate size of the messages.
 
-An adversary who can observe Alice's invite code in the second channel
+An adversary who can observe Alice's invite code in the out-of-band channel
 can perform impersonation attacks.
 Additional measures can
-relax the security requirements for the *second channels*
+relax the security requirements for the out-of-band channel
 to also work under a threat of observation.
 
 ..
   TODO: Explain 'verified' and 'protected' terminology in the code,
-  and 'guaranteed' and 'green checkmark' terminology in thd UI
+  and 'green checkmark' terminology in thd UI
 
 Disadvantages of other key-verification techniques
 ++++++++++++++++++++++++++++++++++++++++++++++++++
 
-An important aspect of secure end-to-end (e2e) encryption is the verification of
+An important aspect of guaranteed end-to-end (e2e) encryption is the verification of
 a peer's key.
 In many existing e2e-encrypting messengers like Signal or Element,
 users perform key verification by triggering two fingerprint verification workflows:

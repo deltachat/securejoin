@@ -7,10 +7,10 @@ Securing communications against network adversaries
 
 To withstand network adversaries,
 peers must verify each other's keys
-to establish trustable e2e-encrypted communication. In this section we describe
+to establish guaranteed e2e-encrypted communication. In this section we describe
 protocols to securely setup a contact and to securely add a user to a group.
 
-Establishing trustable e2e-encrypted communication is
+Establishing guaranteed e2e-encrypted communication is
 particularly difficult
 in group communications
 where more than two peers communicate with each other.
