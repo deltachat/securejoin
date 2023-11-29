@@ -20,7 +20,7 @@ are not considered in the Level 1 specification.
 Yet,
 such active attackers might undermine the security of Autocrypt.
 Therefore,
-we present and discuss SecureJoin as a new practically usable
+we present and discuss SecureJoin protocols as a new, practically usable
 way to prevent and detect active network attacks
 against Autocrypt_-capable mail apps.
 
@@ -40,41 +40,40 @@ funded through the EU Horizon 2020 programme.
 Attack model and terminology
 ++++++++++++++++++++++++++++
 
-We consider a *network adversary* that can read, modify, and create
-network messages.
-Examples of such an adversary are an ISP, an e-mail provider, an AS,
-or an eavesdropper on a wireless network.
-The goal of the adversary is to i) read the content of messages, ii)
-impersonate peers -- communication partners, and iii) to learn who communicates
-with whom.
-To achieve these goals,
-an active adversary might try, for example,
-to perform a machine-in-the-middle attack on the key exchange protocol
-between peers.
+We consider
 
-To enable secure key-exchange and key-verification between peers,
-we assume that peers have access to a *out-of-band*
-communication channel that cannot be observed or manipulated by the adversary.
-More concretely we expect them to be able
-to transfer a small amount of data via a QR-code confidentially.
+- *Peer* devices that use the network or *first channel* for transporting messages
+  and for key-exchange in order to establish end-to-end encryption.
 
-Targeted attacks on end devices or the out-of-band channels
-can break our assumptions
-and therefore the security properties of the protocols described.
-In particular
-the ability to observe QR-codes in the scan process
-(for example through CCTV or by getting access to print outs)
-will allow impersonation attacks.
+- A *network adversary* that can read, modify, and create
+  network messages on the *first channel*.
+  Examples of such an adversary are an ISP, an e-mail provider, an AS,
+  or an eavesdropper on a wireless network.
+  The goal of the adversary is to i) read the content of messages,
+  and to ii) impersonate *peer* devices.
+
+We assume that
+
+- All peers are honest and do not collaborate with the network adversary.
+
+- A Peer (Alice) can send a single QR-code sized *invite code*
+  in a *second channel* to another peer (Bob).
+  The attacker can not observe or modify the invite code.
+
+The SecureJoin protocols allow *peer* devices
+to establish guaranteed end-to-end encryption
+that is resistant to machine-in-the-middle attacks by the network adversary,
+preventing the adversary from reading messages or impersonating honest peers.
+
+Passive adversaries such as message transport providers can still learn
+which peers communicate with each other,
+at what time and the approximate size of the messages.
+
+An adversary who can observe Alice's invite code in the second channel
+can perform impersonation attacks.
 Additional measures can
-relax the security requirements for the *out-of-band* channel
+relax the security requirements for the *second channels*
 to also work under a threat of observation.
-
-Passive attackers such as service providers can still learn who
-communicates with whom at what time and the approximate size of the messages.
-
-Because peers learn the content of the messages,
-we assume that all peers are honest.
-They do not collaborate with the adversary and follow the protocols described in this document.
 
 ..
   TODO: Explain 'verified' and 'protected' terminology in the code,
@@ -121,32 +120,35 @@ by integrating key verification into existing messaging use cases:
   Alice and Bob know each other's contact information and
   have verified each other's keys.
   To do so,
-  Alice sends bootstrap data using the trusted out-of-band channel to Bob (for
+  Alice sends an *invite code* using using the second channel to Bob (for
   example, by showing QR code).
-  The bootstrap data
+  The invite code
   transfers not only the key fingerprint,
   but also contact information (e.g., email address).
-  After receiving the out-of-band bootstrap data, Alice's and Bob's clients
-  communicate via the regular channel to 1) exchange Bob's key and contact
+  After receiving the second-channel invite code, Alice's and Bob's clients
+  communicate via the first channel to 1) exchange Bob's key and contact
   information and 2) to verify each other's keys.
   Note that this protocol only uses one out-of-band message requiring
   involvement of the user. All other messages
   are sent in the channel potentially observed by a network adversary.
+  Note that this protocol only requires one *invite code* to be transferred without corruption.
+  All other messages are exchanged on the first channel controled by the network adversary.
 
 - the :ref:`Verified Group protocol <verified-group>` enables a user to invite
-  another user to join a verified group.
-  The "joining" peer establishes verified contact with the inviter,
+  another user to join a verified group as a new member.
+  This protocol builds on top of the previous protocol.
+  The "joining" peer first establishes verified contact with the inviter,
   and the inviter then announces the joiner as a new member. At the end of this
   protocol, the "joining" peer has learned the keys of all members of the group.
-  This protocol builds on top of the previous protocol.
-  But, this time, the bootstrap data functions as an invite code to the group.
 
-  Any member may invite new members.
+  Any group member may invite new members.
   By introducing members in this incremental way,
   a group of size :math:`N` requires only :math:`N-1` verifications overall
   to ensure that a network adversary can not compromise end-to-end encryption
   between group members. If one group member loses her key (e.g. through device loss),
   she must re-join the group via invitation of the remaining members of the verified group.
+
+.. TODO: this subsection is superflous / redundant and should be merged with what is in new.rst
 
 
 .. _autocrypt: https://autocrypt.org

@@ -137,7 +137,7 @@ messages.
    Setup Contact protocol step 2.
 
 The protocol follows a single simple UI workflow:
-A peer "shows" bootstrap data
+A peer "shows" an invite code once
 that is then "read" by the other peer through a second channel.
 This means that,
 as opposed to current fingerprint verification workflows,
@@ -172,14 +172,14 @@ and convince the peer to verify it.
    sequenceDiagram
       participant A as Alice
       participant B as Bob
-      A-->>B: 1.a) bootstrap code
+      A-->>B: 1.a) invite code
       Note over B: 2.a) check for existing key
       B->>A: 2.b) vc-request message with INVITENUMBER
-      Note over A: 3.a) look up bootstrap by INVITENUMBER
+      Note over A: 3.a) look up invite code by INVITENUMBER
       Note over A: 3.b) (removed)
       Note over A: 3.c) process AC header
       A->>B: 3.d) vc-auth-required message with AC header
-      Note over B: 4.a) abort if key does not match FP from bootstrap
+      Note over B: 4.a) abort if key does not match FP from invite code
       B->>A: 4.b) vc-request-with-auth with Bob_FP and AUTH
       Note over A: 5.a) verify AUTH and key
       Note over A: 5.b) on failure alert user and abort
@@ -195,9 +195,9 @@ of the proposed UI and administrative message workflow
 for establishing a secure contact between two contacts,
 Alice and Bob.
 
-1. Alice sends a bootstrap code to Bob via the second channel.
+1. Alice sends a invite code to Bob via the second channel.
 
-   a) The bootstrap code consists of:
+   a) The invite code consists of:
 
    - Alice's Openpgp4 public key fingerprint ``Alice_FP``,
      which acts as a commitment to the
@@ -208,7 +208,7 @@ Alice and Bob.
    - a challenge ``INVITENUMBER`` of at least 8 bytes.
      This challenge is used by Bob's device in step 2b
      to prove to Alice's device
-     that it is the device that the bootstrap code was shared with.
+     that it is the device that the invite code was shared with.
      Alice's device uses this information in step 3
      to automatically accept Bob's contact request.
      This is in contrast with most messaging apps
@@ -226,7 +226,7 @@ Alice and Bob.
      ..
        TODO: Double-check if this explanation of the ``tokens`` table is correct
 
-2. Bob receives the bootstrap code and
+2. Bob receives the invite code and
 
    a) If Bob's device already knows a key with the fingerprint ``Alice_FP``
       that
@@ -239,7 +239,7 @@ Alice and Bob.
 
 3. Alice's device receives the "vc-request" message.
 
-   a) She looks up the bootstrap data for the ``INVITENUMBER``.
+   a) She looks up the invite code for the ``INVITENUMBER``.
    If the ``INVITENUMBER`` does not match
    then Alice terminates the protocol.
 
@@ -300,10 +300,10 @@ Alice and Bob.
 
 At the end of this protocol,
 Alice has learned and validated the contact information and Autocrypt key of Bob,
-the person to whom she sent the bootstrap code.
+the person to whom she sent the invite code.
 Moreover,
 Bob has learned and validated the contact information and Autocrypt key of Alice,
-the person who sent the bootstrap code to Bob.
+the person who sent the invite code to Bob.
 
 Requirements for the underlying encryption scheme
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -331,7 +331,7 @@ An active attacker cannot break the security of the Setup Contact protocol
 Recall that an active attacker can
 read, modify, and create messages
 that are sent via a regular channel.
-The attacker cannot observe or modify the bootstrap code
+The attacker cannot observe or modify the invite code
 that Alice sends via the second channel.
 We argue that such an attacker cannot
 break the security of the Setup Contact protocol,
@@ -359,8 +359,8 @@ we do not consider dropping of messages further.
    However, Bob will detect this modification during step 4a,
    because the fake ``Alice-MITM`` key does not match
    the fingerprint ``Alice_FP``
-   that Alice sent to Bob in the bootstrap code.
-   (Recall that the bootstrap code is transmitted
+   that Alice sent to Bob in the invite code.
+   (Recall that the invite code is transmitted
    via the second channel
    the adversary cannot modify.)
 
@@ -412,7 +412,7 @@ we do not consider dropping of messages further.
      the fingerprint of the fake ``Bob-MITM`` key and
      a guess for the challenge ``AUTH``.
      The adversary cannot learn the challenge ``AUTH``:
-     it cannot observe the bootstrap code
+     it cannot observe the invite code
      transmitted via the second channel in step 1,
      and it cannot decrypt the message "vc-request-with-auth".
      Therefore,
@@ -544,7 +544,7 @@ so that Alice and Bob verify each other's keys.
 To ask for Bob's explicit consent we
 indicate that the messages are part of the verified group protocol,
 and include the group's identifier
-in the metadata part of the bootstrap code.
+in the metadata part of the verified-group invite code.
 
 More precisely:
 
