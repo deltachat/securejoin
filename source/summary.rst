@@ -80,12 +80,12 @@ They do not collaborate with the adversary and follow the protocols described in
   TODO: Explain 'verified' and 'protected' terminology in the code,
   and 'guaranteed' and 'green checkmark' terminology in thd UI
 
-Problems of current key-verification techniques
-+++++++++++++++++++++++++++++++++++++++++++++++
+Disadvantages of other key-verification techniques
+++++++++++++++++++++++++++++++++++++++++++++++++++
 
 An important aspect of secure end-to-end (e2e) encryption is the verification of
 a peer's key.
-In existing e2e-encrypting messengers,
+In many existing e2e-encrypting messengers like Signal or Element,
 users perform key verification by triggering two fingerprint verification workflows:
 each of the two peers shows and reads the other's key fingerprint
 through a trusted channel (often a QR code show+scan).
@@ -103,14 +103,6 @@ We observe the following issues with these schemes:
   Forming a group of size :math:`N` therefore requires
   :math:`N(N-1) / 2` verifications in total.
   Thus this approach is impractical even for moderately sized groups.
-
-..
-  TODO: Move next point to a new 'Known limitations and issues' section at the end
-- The verification of the fingerprint only checks the current keys.
-  Since protocols do not store any historical information about keys,
-  the verification can not detect if there was a past temporary
-  MITM-exchange of keys (say the network adversary
-  exchanged keys for a few weeks but changed back to the "correct" keys afterwards).
 
 - Users often fail to distinguish Lost/Reinstalled Device events from
   Machine-in-the-Middle (MITM) attacks, see for example `When Signal hits the Fan
@@ -138,7 +130,8 @@ by integrating key verification into existing messaging use cases:
   communicate via the regular channel to 1) exchange Bob's key and contact
   information and 2) to verify each other's keys.
   Note that this protocol only uses one out-of-band message requiring
-  involvement of the user. All other messages are transparent.
+  involvement of the user. All other messages
+  are sent in the channel potentially observed by a network adversary.
 
 - the :ref:`Verified Group protocol <verified-group>` enables a user to invite
   another user to join a verified group.
@@ -157,3 +150,14 @@ by integrating key verification into existing messaging use cases:
 
 
 .. _autocrypt: https://autocrypt.org
+
+
+Known Limitations and Issues
+++++++++++++++++++++++++++++
+
+- The verification of the fingerprint only checks the current keys.
+  Since protocols do not store any historical information about keys,
+  the verification can not detect if there was a past temporary
+  MITM-exchange of keys (say the network adversary
+  exchanged keys for a few weeks but changed back to the "correct" keys afterwards).
+
