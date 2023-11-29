@@ -120,19 +120,19 @@ by integrating key verification into existing messaging use cases:
   Alice and Bob know each other's contact information and
   have verified each other's keys.
   To do so,
-  Alice sends an *invite code* using using the second channel to Bob (for
-  example, by showing QR code).
+  Alice sends an *invite code* using the second channel to Bob (for
+  example, by showing it as a QR code).
   The invite code
   transfers not only the key fingerprint,
   but also contact information (e.g., email address).
   After receiving the second-channel invite code, Alice's and Bob's clients
-  communicate via the first channel to 1) exchange Bob's key and contact
+  communicate via the regular messaging channel to 1) exchange Bob's key and contact
   information and 2) to verify each other's keys.
   Note that this protocol only uses one out-of-band message requiring
   involvement of the user. All other messages
-  are sent in the channel potentially observed by a network adversary.
-  Note that this protocol only requires one *invite code* to be transferred without corruption.
-  All other messages are exchanged on the first channel controled by the network adversary.
+  are sent in the regular channel potentially controlled by a network adversary.
+  Note that this protocol only requires one *invite code* to be transferred un-observed.
+  All other messages are exchanged on the regular messaging channel controled by the network adversary.
 
 - the :ref:`Verified Group protocol <verified-group>` enables a user to invite
   another user to join a verified group as a new member.
