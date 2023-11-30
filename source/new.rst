@@ -41,7 +41,7 @@ that each peer needs to verify with at least one other peer
 to assure that there is no isolation attack.
 
 A known approach
-to reduce the number of neccessary key verifications
+to reduce the number of necessary key verifications
 is the web of trust.
 This approach requires a substantial learning effort for users
 to understand the underlying concepts,
@@ -76,7 +76,7 @@ that they significantly improve usability by reducing the overall number of user
 
 Note that automated processing of administrative messages
 opens up a new attack vector:
-malfeasant peers can try to inject adminstrative messages
+malfeasant peers can try to inject administrative messages
 in order
 to impersonate another user or
 to learn if a particular user is online.
@@ -91,7 +91,7 @@ without having to rely on services from third parties.
 Our verification approach thus fits into the Autocrypt key distribution model
 which does not require extra services from third parties either.
 
-While Autocrypt Level 1 focusses on passive attacks
+While Autocrypt Level 1 focuses on passive attacks
 such as sniffing the mail content
 by a provider,
 active attacks are outside of the scope
@@ -219,7 +219,7 @@ Alice and Bob.
      which Bob's device uses in step 4
      to authenticate itself against Alice's device.
 
-   b) In the ``tokens`` SQL table, Alices device will keep track of:
+   b) In the ``tokens`` SQL table, Alice's device will keep track of:
    - the namespace (``INVITENUMBER`` or ``AUTH``)
    - if this is a `verified-group`_ invite: the group chat id
    - the token itself
@@ -436,11 +436,11 @@ Replay attacks and conflicts
   since we don't let keys expire.
   Probably we should just remove it.
 
-Alices device records the time a contact verification was initiated.
+Alice's device records the time a contact verification was initiated.
 It also verifies it has not expired and clears the data after
 completion.
 This prevents replay attacks.
-Replay attacks could be used to make Alices device switch back
+Replay attacks could be used to make Alice's device switch back
 to an old compromised key of Bob.
 
 Limiting an invite to a single use
@@ -538,7 +538,7 @@ In order to add Bob to the group
 Alice has to verify him as a contact
 if she has not done so yet.
 We use this message exchange
-to also ask Bob wether he agrees to becoming part of the group.
+to also ask Bob whether he agrees to becoming part of the group.
 
 The protocol re-uses the first five steps of the `setup-contact`_ protocol
 so that Alice and Bob verify each other's keys.
@@ -606,7 +606,7 @@ a. Alice broadcasts an encrypted "vg-member-setup" message to all members of
 b. Bob receives the encrypted "vg-member-setup" message.
    Bob's device verifies:
 
-     * The encryption and Alices signature are intact.
+     * The encryption and Alice's signature are intact.
 
      * Alice may invite Bob to a verified group.
        That is she is a verified contact of Bob.
@@ -623,7 +623,7 @@ c. Any other group member that receives the encrypted "vg-member-setup" message
    will process the gossiped key through autocrypt gossip mechanisms.
    In addition they verify:
 
-   * The encryption and Alices signature are intact.
+   * The encryption and Alice's signature are intact.
 
    * They are themselves a member of ``GROUP``.
 
@@ -653,7 +653,7 @@ Strategies for verification reuse
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Since we retrieve keys for verified groups from peers
-we have to choose wether we want to trust our peers
+we have to choose whether we want to trust our peers
 to verify the keys correctly.
 
 One of the shortcomings of the web of trust
@@ -669,7 +669,7 @@ Delta Chat chose the
 "Ignoring infiltrators, focusing on message transport attacks first"
 strategy.
 
-- **Restricting verification reuse accross groups**
+- **Restricting verification reuse across groups**
   Since we share the content of the group
   with all group members
   we can also trust them
@@ -701,7 +701,7 @@ strategy.
   in which an "infiltrator" peer collaborates with an evil provider
   to intercept/read messages.
 
-  In this case keys can be reused accross verified groups.
+  In this case keys can be reused across verified groups.
   Active attacks from an adversary
   who can only modify messages in the regular transport channel
   are still impossible.
@@ -753,7 +753,7 @@ Since the email address of that user remains the same
 the old key will be replaced by the new one.
 
 Implementers may decide
-wether the recipients of such key updates
+whether the recipients of such key updates
 propagate them to other groups
 they share with the user in question.
 If they do this will speed up the recovery from device loss.
@@ -779,7 +779,7 @@ Notes on the verified group protocol
   but not the others - this should be made clear somehow.
 
 - **More Asynchronous UI flow**:
-  All steps after 2 (the sending of adminstrative messages)
+  All steps after 2 (the sending of administrative messages)
   could happen asynchronously and in the background.
   This might be useful because e-mail providers often delay initial messages
   ("greylisting") as mitigation against spam.
