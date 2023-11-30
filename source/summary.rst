@@ -32,7 +32,7 @@ we consider usability, cryptographic and implementation aspects simultaneously,
 because they constrain and complement each other.
 Note that the basis for SecureJoin protocols was laid in the first two sections of
 `CounterMitm <https://countermitm.readthedocs.io/en/latest/>`_
-which was created by reseachers of NEXTLEAP,
+which was created by researchers of NEXTLEAP,
 a 2016-2018 project on privacy and decentralized messaging,
 funded through the EU Horizon 2020 programme.
 
@@ -148,7 +148,7 @@ by integrating key verification into existing messaging use cases:
   between group members. If one group member loses her key (e.g. through device loss),
   she must re-join the group via invitation of the remaining members of the verified group.
 
-.. TODO: this subsection is superflous / redundant and should be merged with what is in new.rst
+.. TODO: this subsection is superfluous / redundant and should be merged with what is in new.rst
 
 
 .. _autocrypt: https://autocrypt.org
