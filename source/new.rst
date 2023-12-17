@@ -178,7 +178,7 @@ and convince the peer to verify it.
       B->>A: 2.b) vc-request message with INVITENUMBER
       Note over A: 3.a) look up invite code by INVITENUMBER
       Note over A: 3.b) (removed)
-      Note over A: 3.c) process AC header
+      Note over A: 3.c) (removed)
       A->>B: 3.d) vc-auth-required message with AC header
       Note over B: 4.a) abort if key does not match FP from invite code
       B->>A: 4.b) vc-request-with-auth with Bob_FP and AUTH
@@ -239,6 +239,7 @@ Alice and Bob.
       Bob's device automatically includes Bob's Autocrypt key in the message.
 
 3. Alice's device receives the "vc-request" message.
+   As with any incoming Autocrypt message, she saves Bob's public key.
 
    a) She looks up the invite code for the ``INVITENUMBER``.
    If the ``INVITENUMBER`` does not match
@@ -246,18 +247,11 @@ Alice and Bob.
 
    b) (removed)
 
-   c) She then processes Bob's Autocrypt key.
+   c) (removed)
 
    d) She uses this key
    to create an encrypted "vc-auth-required" message
    containing her own Autocrypt key, which she sends to Bob.
-..
-  TODO:
-  Step 3c) actually happens before 3a) in the code,
-  i.e. Alice first processes Bob's Autocrypt key and then looks up the INVITENUMBER.
-  We should change the deltachat core here, not the spec;
-  For other implementors the deltachat-internal order of events doesn't matter,
-  so we don't risk compability.
 ..
   TODO: Mention somewhere that it's a known tradeoff that invitenumbers don't expire.
 
