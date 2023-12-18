@@ -81,7 +81,7 @@ in order
 to impersonate another user or
 to learn if a particular user is online.
 ..
-  TODO: Link to PR/issue about prevent-online-leak
+  TODO: Link to PR/issue about prevent-online-leak: https://github.com/deltachat/deltachat-core-rust/pull/4932
   TODO: Add new attack vectors to known limitations in summary.rst
 
 All protocols that we introduce in this section are *decentralized*.
@@ -253,7 +253,11 @@ Alice and Bob.
    to create an encrypted "vc-auth-required" message
    containing her own Autocrypt key, which she sends to Bob.
 ..
-  TODO: Mention somewhere that it's a known tradeoff that invitenumbers don't expire.
+  TODO: Right now, invitenumbers don't expire.
+  At https://github.com/deltachat/deltachat-core-rust/pull/4932 we discussed
+  that we should let them expire, and if it's expired,
+  Bob should then directly see "this is an expired invite code for ..." after scanning.
+  Alternatively, we should mention somewhere that they don't expire.
 
 4. Bob receives the "vc-auth-required" message,
    decrypts it,
@@ -283,6 +287,13 @@ Alice and Bob.
 
 ..
   TODO: We don't show "Secure contact with Bob <bob-adr> established"
+..
+  link2xt:
+  Change "Bob's device receives "vc-contact-confirm" and shows "Secure contact with Alice <alice-adr> established".
+  " to "... and marks current key as verified by Alice" or so. This is how it works with
+  https://github.com/deltachat/deltachat-core-rust/pull/5089 or at least should work - tests
+  currently pass but I did not do a self-review yet.
+
 6. If the verification succeeds on Alice's device
 
    a) shows "Secure contact with Bob <bob-adr> established".
@@ -563,6 +574,19 @@ More precisely:
   It's not as unsafe as it sounds at first since Bob usually doesn't
   know the grpid of groups he's not a part of.
   Still, I'm wondering if we should fix this in DC.
+..
+  link2xt comment:
+  Associating invite number to verified group ID would be nice indeed.
+  I would really like to stop allowing to use non-verified group IDs there,
+  expire them (even for bots) and stop allowing to generate QR invite codes for non-verified group.
+  I don't like that group is created as non-verified immediately when Bob scans QR code,
+  but then maybe upgraded to verified if Alice sends Chat-Verified header in Member added message.
+  Just creating the group as verified immediately after scanning a QR code
+  would be much simpler as there will be no places where group state is changed between protected/unprotected.
+  We can then add another QR code type to join non-verified groups that simply ask
+  to be added to the group without verification - verifiying inviter and then joining
+  non-verified group in the end is strange.
+
 - in step 5 Alice looks up the metadata
   associated with the ``INVITENUMBER``.
   If Alice sees the ``INVITE=<groupname>``
