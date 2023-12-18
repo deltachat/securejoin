@@ -3,6 +3,9 @@
    \pagestyle{plain}
    \cfoot{securejoin \securejoinrelease}
 
+..
+  TODO: Merge with new.rst
+
 Introduction
 ============
 
